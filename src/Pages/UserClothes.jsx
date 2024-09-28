@@ -1,11 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserClothes = () => {
   // Initially empty data structure for clothes
   const clothes = [];
 
+  const navigate=useNavigate();
+
+  const handleAddClothes = (e) => {
+    e.preventDefault();
+    navigate('/add-clothes');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-900 to-pink-900 p-10">
+    <div className="min-h-screen bg-gradient-to-r from-black via-purple-950 to-black p-10">
+      <div className='text-3xl md:text-6xl font-bold text-white mb-12'>user clothes</div>
+      <button
+      onClick={handleAddClothes}
+      className="bg-gradient-to-r from-purple-600 to-blue-400  text-black text-2xl font-oswald rounded-3xl px-8 py-3 my-2 hover:bg-gray-300"
+      
+      >Add Clothes</button>
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           You own {clothes.length} clothes (Want to Donate?)
