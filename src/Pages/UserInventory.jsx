@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 const categories = [
-  { name: "Clothes", icon: "👕", path: "/user-clothes" }, // Add path for routing
-  { name: "Electronics", icon: "📱", path: "/electronics" },
-  { name: "Accessories", icon: "👜", path: "/accessories" },
+  { name: "Clothes", icon: "👕", path: "/user-clothes" }, 
+  { name: "Electronics", icon: "📱", path: "/user-electronics" },
+  { name: "Accessories", icon: "👜", path: "/user-accessories" },
 ];
 
 export default function UserInventory() {
@@ -23,7 +23,7 @@ export default function UserInventory() {
       </motion.h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
         {categories.map((category, index) => (
-          <Link to={category.path} key={category.name}> {/* Wrap with Link */}
+          <Link to={category.path} key={category.name}> 
             <motion.div
               className={`bg-gray-900 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg p-8 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border border-gray-700 ${
                 hoveredIndex === index ? 'bg-opacity-70' : ''

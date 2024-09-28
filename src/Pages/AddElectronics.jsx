@@ -6,39 +6,36 @@ import { collection, addDoc } from 'firebase/firestore'; // Import Firestore met
 import { AuthContext } from '../Context/AuthContext'; // Import AuthContext
 import { useNavigate } from 'react-router-dom';
 
-const AddClothes = () => {
+const AddElectronics = () => { // Updated component name
   const { currentUser } = useContext(AuthContext); 
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
   const [boughtOn, setBoughtOn] = useState('');
-  const [lastUsed, setLastUsed] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const Spinner = () => (
-    <div className=" p-6 flex justify-center items-center">
+    <div className="p-6 flex justify-center items-center">
       <div className="animate-spin h-10 w-10 border-4 border-t-4 border-white border-t-purple-500 rounded-full"></div>
     </div>
   );
 
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!currentUser) {
-      setError("You must be logged in to add clothes.");
+      setError("You must be logged in to add electronics.");
       navigate('/login');
       return;
     }
-    setLoading(true)
+    setLoading(true);
 
     try {
-      await addDoc(collection(db, 'clothes'), { 
-        name,
+      await addDoc(collection(db, 'electronics'), { 
         image,
         boughtOn,
-        
         userId: currentUser.uid, 
         createdAt: new Date() 
       });
@@ -47,14 +44,13 @@ const AddClothes = () => {
       setName('');
       setImage(null);
       setBoughtOn('');
-      setLastUsed('');
       setError(null); 
-      navigate('/user-clothes');
+      navigate('/user-electronics'); // Update the navigation path
     } catch (err) {
       console.error("Error adding document: ", err);
-      setError("Failed to add clothes. Please try again.");
-    }finally{
-      setLoading(false)
+      setError("Failed to add electronics. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,9 +73,9 @@ const AddClothes = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Add Clothes
+        Add Electronics
       </motion.h1>
-      {error && <p className="text-red-500 mb-4">{error}</p>} 
+      {error && <p className="text-red-500 mb-4">{error}</p>} {/* Display error message */}
       <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
@@ -114,19 +110,18 @@ const AddClothes = () => {
             required
           />
         </div>
-        
         <div className="flex items-center justify-between">
           <button 
             type="submit" 
             className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Add Clothes
+            Add Electronics
           </button>
           <Link 
-            to="/user-clothes" 
+            to="/user-electronics" // Update the navigation path
             className="inline-block align-baseline font-bold text-sm text-purple-500 hover:text-purple-800"
           >
-            Back to Clothes
+            Back to Electronics
           </Link>
         </div>
       </form>
@@ -136,4 +131,4 @@ const AddClothes = () => {
   );
 };
 
-export default AddClothes;
+export default AddElectronics; // Updated export statement

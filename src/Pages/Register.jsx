@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -10,17 +10,23 @@ const Register = () => {
   const auth = getAuth();
   const { setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(""); // State to store the error message
+
   const onSubmit = async (data) => {
     const { email, password, fullname} = data;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user; // Get the registered user
+      const user = userCredential.user; 
       setCurrentUser(user);
-      console.log("User registered:", { fullname});
+      console.log("User registered:", { fullname });
       navigate("/user-inventory");
     } catch (error) {
-      console.error("Error registering user:", error);
+      if (error.code === "auth/email-already-in-use") {
+        setErrorMessage("This email is already in use. Please use a different email.");
+      } else {
+        setErrorMessage("Error registering user. Please try again.");
+      }
     }
   };
 
@@ -29,7 +35,6 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       setCurrentUser(result.user);
-      // You can handle the result, e.g., storing user information in Firestore
       console.log("User signed in with Google:", result.user);
       navigate("/user-inventory");
     } catch (error) {
@@ -40,7 +45,6 @@ const Register = () => {
   return (
     <>
       <div className="flex items-center justify-between min-h-screen ">
-        {/* Left side - iframe */}
         <div className="hidden md:block w-1/2 h-screen">
           <iframe
             className="w-full h-full"
@@ -50,7 +54,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Right side - Form */}
         <div className="w-full md:w-1/2 flex items-center justify-center min-h-screen bg-black">
           <div className="relative py-3 sm:max-w-xl sm:mx-auto border-t border-gray-900">
             <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
@@ -92,11 +95,14 @@ const Register = () => {
   {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
 </div>
                   </div>
+                  <div className="text-red-500 text-center mb-4">
+                    {errorMessage} 
+                  </div>
                   <div className="flex justify-center items-center">
                     <div>
                       <button 
-                        type="button" // Change to type="button"
-                        onClick={handleGoogleSignUp} // Trigger Google sign-in on button click
+                        type="button"
+                        onClick={handleGoogleSignUp} 
                         className="flex items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                         <svg
                           viewBox="0 0 24 24"
@@ -118,15 +124,17 @@ const Register = () => {
                   <div className="flex justify-center mt-5">
                     <button 
                       type="submit" 
-                      className="flex items-center justify-center py-2 px-20 bg-blue-500 hover:bg-blue-600 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                      className="flex items-center justify-center py-2 px-20 bg-blue-500 hover:bg-blue-600 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200                       text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                       Register
                     </button>
                   </div>
                 </form>
-                <div className="flex justify-center mt-5">
+                <div className="mt-5 text-center">
                   <p className="text-sm text-gray-600">
-                    Already have an account? 
-                    <Link to="/login" className="text-blue-500 hover:text-blue-700"> Log in</Link>
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-blue-500 hover:underline">
+                      Log in
+                    </Link>
                   </p>
                 </div>
               </div>

@@ -1,11 +1,9 @@
-// firebase.js
 
-// Correct imports for Firebase v9+
-import { initializeApp } from 'firebase/app'; // No default import from 'firebase/app'
+import { initializeApp } from 'firebase/app'; 
 import { getAuth } from 'firebase/auth'; 
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuzX_wuENVba-I8ht5g3r6UINsVK2Qi5k",
   authDomain: "bitnbuild-56387.firebaseapp.com",
@@ -16,11 +14,12 @@ const firebaseConfig = {
   measurementId: "G-FEM4521L8Y"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
-// Export Firebase services
+
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { auth, db };
+export { auth, db,storage };
