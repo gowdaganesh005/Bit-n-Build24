@@ -1,32 +1,72 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { db } from '../firebase'; // Import your Firebase Firestore
+import { collection, addDoc } from 'firebase/firestore'; // Import Firestore methods
+import { AuthContext } from '../Context/AuthContext'; // Import AuthContext
+import { useNavigate } from 'react-router-dom';
 
-export default function AddClothes() {
-  const [name, setName] = useState('')
-  const [image, setImage] = useState(null)
-  const [boughtOn, setBoughtOn] = useState('')
-  const [lastUsed, setLastUsed] = useState('')
+const AddClothes = () => {
+  const { currentUser } = useContext(AuthContext); 
+  const [name, setName] = useState('');
+  const [image, setImage] = useState(null);
+  const [boughtOn, setBoughtOn] = useState('');
+  const [lastUsed, setLastUsed] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log({ name, image, boughtOn, lastUsed })
-    setName('')
-    setImage(null)
-    setBoughtOn('')
-    setLastUsed('')
-  }
+  const navigate = useNavigate();
+
+  const Spinner = () => (
+    <div className=" p-6 flex justify-center items-center">
+      <div className="animate-spin h-10 w-10 border-4 border-t-4 border-white border-t-purple-500 rounded-full"></div>
+    </div>
+  );
+
+  const handleSubmit = async (e) => { // Mark this function as async
+    e.preventDefault();
+    
+    if (!currentUser) {
+      setError("You must be logged in to add clothes.");
+      return;
+    }
+    setLoading(true)
+
+    try {
+      await addDoc(collection(db, 'clothes'), { // Add the missing comma
+        name,
+        image,
+        boughtOn,
+        lastUsed,
+        userId: currentUser.uid, 
+        createdAt: new Date() 
+      });
+
+      // Reset the form
+      setName('');
+      setImage(null);
+      setBoughtOn('');
+      setLastUsed('');
+      setError(null); 
+      navigate('/user-clothes');
+    } catch (err) {
+      console.error("Error adding document: ", err);
+      setError("Failed to add clothes. Please try again.");
+    }finally{
+      setLoading(false)
+    }
+  };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result)
-      }
-      reader.readAsDataURL(file)
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen font-oswald bg-gradient-to-br from-purple-900 via-purple-700 to-pink-500 flex flex-col items-center justify-center p-4">
@@ -38,6 +78,7 @@ export default function AddClothes() {
       >
         Add Clothes
       </motion.h1>
+      {error && <p className="text-red-500 mb-4">{error}</p>} {/* Display error message */}
       <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
@@ -91,13 +132,17 @@ export default function AddClothes() {
             Add Clothes
           </button>
           <Link 
-            to="/clothes" 
+            to="/user-clothes" 
             className="inline-block align-baseline font-bold text-sm text-purple-500 hover:text-purple-800"
           >
             Back to Clothes
           </Link>
         </div>
       </form>
+      {loading && <Spinner />}
+      {error && <p className="text-red-500 mt-4">{error}</p>} 
     </div>
-  )
-}
+  );
+};
+
+export default AddClothes;
