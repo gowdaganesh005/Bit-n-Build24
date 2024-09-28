@@ -14,7 +14,7 @@ const CarbonFootprintCalculator = () => {
 
     try {
       const response = await axios.post(
-        'https://beta3.api.climatiq.io/estimate',
+        'https://api.climatiq.io/data/v1/estimate ',
         {
           activity_id: activityId,
           parameters: {

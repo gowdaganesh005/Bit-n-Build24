@@ -6,6 +6,10 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider} f
 import UserInventory from './Pages/UserInventory.jsx'
 import AddClothes from './Pages/AddClothes.jsx'
 import UserClothes from './Pages/UserClothes.jsx'
+import CarbonFootprintCalculator from './Pages/CarbnoFootPrint.jsx'
+import Home from './Pages/Home.jsx'
+import { AuthProvider } from './Context/AuthContext.jsx'
+import Register from './Pages/Register.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -14,7 +18,9 @@ const router=createBrowserRouter(
       <Route path='/user-inventory' element={<UserInventory/>}/>
       <Route path='/add-clothes' element={<AddClothes/>}/>
       <Route path='/user-clothes' element={<UserClothes/>}/>
-    
+      <Route path='/carbon-footprint' element={<CarbonFootprintCalculator/>}/>
+      <Route path='/register' element={<Register/>}/>
+      <Route path='' element={<Home/>}/>
     </Route>
 
   )
@@ -23,8 +29,9 @@ const router=createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-    <App />
-    </RouterProvider>
+    <AuthProvider>
+    <RouterProvider router={router} />
+    
+    </AuthProvider>
   </React.StrictMode>,
 )
