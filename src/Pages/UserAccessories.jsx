@@ -121,7 +121,7 @@ const UserAccessories = () => {
    
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-md p-4 text-gray-800">
-          You own {accessories.length} Accessories
+          You own {accessories.length} Accessories Want to<a href="https://goonj.org/" className="underline">Donate?</a>
         </h2>
         <div>
           <select

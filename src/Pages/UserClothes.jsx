@@ -137,7 +137,7 @@ const UserClothes = () => {
       </button>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg shadow-md p-4 text-gray-800">
-          You own a Total of {clothes.length} Apparels (Want to Donate?)
+          You own a Total of {clothes.length} Apparels <a href="https://goonj.org/" className="underline">Donate?</a>
         </h2>
         <button
           onClick={handleSortToggle}
