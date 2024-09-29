@@ -1,27 +1,41 @@
-# React + Vite
+# Quantify - A Web Inventory Manager
+
+A web solution for mangaging Inventory and helping in Donating and Make a Step in Environmental Sustanibility.
+This web app helps you to manage you Inventory of clothes electronics and Accessories.
+
+Our Web app has Clean and interative UI to make a memorable experience for users
 
 Start Date:28/09/2024
 End Date:29/09/2024
 
+test email: mahadevathani1729@gmail.com
+password : 45566787
 
 
-Web Name:Quantify
 
 
-
-Used Technical Stacks:
+## Used Technical Stacks:
 #ReactJs 
+#FireBase
 #Tailwind Css
 
-Added Feautures:
+## Added Feautures:
 1. Clothes Management (add ,delete, update wear count)
 2. Accessories Management( add ,delete ,update)
 3. Electronics Management (add, delete )
 4. Clothes wear count diagnostics using a Pie Chart for better visualization for users 
-5. Accessories colour  using the Pie Chart for better visualization for  users 
-6 . Community Chat Features and Image upload in chat 
-7. Authentication using SignIn and Sign up
-8.Use firbase firestone database to store,upadte and to retrive data
+5. Accessories colour distribution  using the Pie Chart for better visualization for  users
+6. Filter Accessories based on colors  
+7. Community Chat Features and Image upload in chat 
+8. Authentication using SignIn and Sign up
+
+
+
+## Video Link
+https://drive.google.com/file/d/1mxgzPBCXFlWtGHK0SJkaAf9BLGMJlR82/view?usp=drivesdk
+
+## Gallery 
+
 
 
 ![WhatsApp Image 2024-09-29 at 09 00 13_b27bb8b0](https://github.com/user-attachments/assets/008d252d-db0b-4d01-bcc5-cb463ca24041)
@@ -34,5 +48,7 @@ Added Feautures:
 
 ![WhatsApp Image 2024-09-29 at 08 59 07_1526445a](https://github.com/user-attachments/assets/63355bcc-926e-4379-9d46-2bec02af80dc)
 
-https://drive.google.com/file/d/1mxgzPBCXFlWtGHK0SJkaAf9BLGMJlR82/view?usp=drivesdk
+
+
+
 
