@@ -1,10 +1,19 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Start Date:28/09/2024
+End Date:29/09/2024
+Web Name:Quantify
 
-Currently, two official plugins are available:
+Used Technical Stacks:
+#ReactJs 
+#Tailwind Css
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-//Mahadev
-//hari
+Added Feautures:
+1. Clothes Management (add ,delete, update wear count)
+2. Accessories Management( add ,delete ,update)
+3. Electronics Management (add, delete )
+4. Clothes wear count diagnostics using a Pie Chart for better visualization for users 
+5. Accessories colour  using the Pie Chart for better visualization for  users 
+6 . Community Chat Features and Image upload in chat 
+7. Authentication using SignIn and Sign up
+8.Use firbase firestone database to store,upadte and to retrive data
